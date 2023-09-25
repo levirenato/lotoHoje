@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from loto_script import data, numbers, game
+from lotoApi import data, numbers, game
 
 # Crie uma instância do aplicativo Flask
 app = Flask(__name__)
