@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>LotoHoje</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        #card0 span {background: #2E3078;color: white;}
+        #card0  li:last-child{background: #2E3078;color: white;}
+        #card1 span {background: #209869;color: white;}
+        #card2 span {background: #930089;color: white;}
+        #card3 span {background: #260085;color: white;}
+        #card4 span {background: #F78100;color: white;}
+        #card5 span {background: #00FF48;color: white;}
+        #card5 li:last-child{background: #00FF48;color: white;}
+        #card6 span {background: #A61324;color: white;}
+        #card7 span {background: #CB852B;color: white;}
+        #card7 li:last-child{background: #CB852B;color: white;}
+        #card8 span {background: #A8CF44;color: white;}
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<ul class="navbar navbar-expand-lg bd-navbar sticky-top justify-content-center bg-success text-white ">
+  <img src="{{url_for('static', filename='favicon.png')}}" width="24px" alt="">
+  <div class="nav-item ms-2  ">
+    <h4>LotoHoje</h4>
+  </div>
+</ul>
+
+<!-- Conteúdo principal -->
+    <ul class="list-group cartao">
+        {% for jogo in dataframe %}
+            {% if jogo == jogos[0] %}
+              <li id="card{{ jogos.index(jogo) }}" class="w-50 input-group-lg card-body align-self-center m-2 card text-bg-light mb-3 shadow-sm">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text"><h5>{{ jogos[0] }}</h5></span>
+                      <input id="{{ jogos.index(jogo) }}" type="text" class="form-control " placeholder="formato 00-00-00-00" aria-label="jogo" min="0" oninput="verificar({{ jogos.index(jogo) }})">
+                    </div>
+                    <ul class="list-group list-group-horizontal flex-wrap m-2" id="numero{{ jogos.index(jogo)}}">
+                        {% for resultado in dataframe[jogo][0] %}
+                            <li class="list-group-item align-center" data-numero="{{ resultado }}">{{ resultado }}</li>
+                        {% endfor %}
+                        <li class="list-group-item">{{ dataframe[jogo][1] }}</li>
+                    </ul>
+                    <div class="d-flex">
+                        <p class="text-left" id="resultado{{ jogos.index(jogo)}}">Você acertou: 0</p>
+                    </div>
+                </li>
+            {% elif jogo == jogos[-4] %}
+              <li id="card{{ jogos.index(jogo) }}" class="w-50 input-group-lg card-body align-self-center m-2 card text-bg-light mb-3 shadow-sm">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text"><h5>{{ jogos[-4] }}</h5></span>
+                      <input id="{{ jogos.index(jogo) }}" type="text" class="form-control " placeholder="formato 00-00-00-00" aria-label="jogo" min="0" oninput="verificar({{ jogos.index(jogo) }})">
+                    </div>
+                    <ul class="list-group list-group-horizontal flex-wrap m-2" id="numero{{ jogos.index(jogo)}}">
+                        {% for resultado in dataframe[jogo][0] %}
+                            <li class="list-group-item align-center" data-numero="{{ resultado }}">{{ resultado }}</li>
+                        {% endfor %}
+                        <li class="list-group-item">{{ dataframe[jogo][1] }}</li>
+                    </ul>
+                    <div class="d-flex">
+                        <p class="text-left" id="resultado{{ jogos.index(jogo)}}">Você acertou: 0</p>
+                    </div>
+                </li>
+            {% elif jogo == jogos[-2] %}
+              <li id="card{{ jogos.index(jogo) }}" class="w-50 input-group-lg card-body align-self-center m-2 card text-bg-light mb-3 shadow-sm">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text"><h5>{{ jogos[-2] }}</h5></span>
+                      <input id="{{ jogos.index(jogo) }}" type="text" class="form-control " placeholder="formato 00-00-00-00" aria-label="jogo" min="0" oninput="verificar({{ jogos.index(jogo) }})">
+                    </div>
+                    <ul class="list-group list-group-horizontal flex-wrap m-2" id="numero{{ jogos.index(jogo)}}">
+                        {% for resultado in dataframe[jogo][0] %}
+                            <li class="list-group-item align-center" data-numero="{{ resultado }}">{{ resultado }}</li>
+                        {% endfor %}
+                        <li class="list-group-item">{{ dataframe[jogo][1] }}</li>
+                    </ul>
+                    <div class="d-flex">
+                        <p class="text-left" id="resultado{{ jogos.index(jogo)}}">Você acertou: 0</p>
+                    </div>
+                </li>
+             {% else %}
+                <li id="card{{ jogos.index(jogo) }}" class="w-50 text-center card-body align-self-center m-2 card text-bg-light mb-3 shadow-sm">
+                    <div class="input-group  input-group-lg">
+                      <span class="input-group-text "><h5>{{ jogo }}</h5></span>
+                      <input id="{{jogos.index(jogo) }}" type="text" class="form-control" placeholder="formato 00-00-00-00" aria-label="jogo" min="0" max="99" oninput="verificar({{ jogos.index(jogo) }})">
+                    </div>
+                    <ul class="list-group list-group-horizontal flex-wrap m-2 " id="numero{{jogos.index(jogo)}}">
+                        {% for resultado in dataframe[jogo] %}
+                            <li class="list-group-item align-center" data-numero="{{ resultado }}">{{ resultado }}</li>
+                        {% endfor %}
+                    </ul>
+                      <div class="d-flex">
+                          <p class="text-left" id="resultado{{ jogos.index(jogo)}}">Você acertou: 0</p>
+                      </div>
+                </li>
+             {% endif %}
+    {% endfor %}
+    </ul>
+<!-- Footer -->
+<footer class="d-flex flex-wrap justify-content-between align-items-center border-top bg-success text-white px-3 h-24">
+    <div class="col-md-4 d-flex align-items-center">
+      <span class="mb-3 mb-md-0 text-white">© 2023 Power By Flask</span>
+    </div>
+      <div class="mb-3 mb-md-0 text-body-secondary d-flex">
+            <img src="{{url_for('static', filename='LEVI-LOGO.png')}}" width="42px">
+            <span class="tmb-3 mb-md-0 text-white">LeviRenato</span>
+      </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a class="text-body-secondary " href="#"><img src="{{url_for('static', filename='github-mark-white.svg')}}" width="32px"/></a></li>
+      <li class="ms-3"><a class="text-body-secondary " href="#"><img src="{{url_for('static', filename='icons8-linkedin.svg')}}" width="32px"/></a></li>
+    </ul>
+  </footer>
+
+</body>
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<!-- Main Script -->
+<script>
+        function verificar(numero) {
+            let inputElement = this.document.getElementById(`${numero}`);
+            let listaElement = this.document.getElementById(`numero${numero}`).querySelectorAll("li");
+            let resultadoElement = this.document.getElementById(`resultado${numero}`);
+
+            let valorInput = inputElement.value;
+            let numerosDigitados = valorInput.split("-").filter(numero => numero.trim() !== "");
+
+            // Converte a lista de elementos <li> em uma matriz de valores
+            let listaNumeros = Array.from(listaElement).map(li => li.textContent);
+
+
+             // Filtra os números digitados que estão presentes na lista de números
+            let numerosIguais = numerosDigitados.filter(numero => listaNumeros.includes(numero));
+
+            // Exibe a contagem de números iguais
+            resultadoElement.textContent = `Você acertou: ${numerosIguais.length}`;
+            if (numerosIguais.length > 0){
+                resultadoElement.style.color = "#0D6EFD"
+                 // Verifica cada número digitado
+                numerosDigitados.forEach(numeroDigitado => {
+                    listaElement.forEach(item => {
+                        const numeroLista = item.getAttribute("data-numero");
+                        if (numeroDigitado === numeroLista) {
+                            item.style.background = "#0D6EFD"; item.style.color = "#ffff";
+                        }
+                    });
+                });
+            }
+            else {
+                resultadoElement.style.color = "black"
+                 listaElement.forEach(item => {
+                        item.style.background = "white";
+                        item.style.color = "black"
+                });
+            }
+        }
+
+
+    </script>
+
+</html>
