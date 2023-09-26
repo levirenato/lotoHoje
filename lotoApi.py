@@ -32,4 +32,3 @@ results = [[numbers[:6], mais_milionario], numbers[6:12],
 
 # created a dict with
 data = dict(zip(game, results))
-print(game[-4])
